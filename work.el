@@ -45,7 +45,7 @@
         (with-current-buffer buf
           (erase-buffer))
         (let ((process-connection-type type))
-          (let ((proc (start-process "sqilte" buf "sqlite3" "-batch" "hoge.db")))
+          (let ((proc (start-process "sqilte" buf "sqlite3" "-interactive" "-echo" "hoge.db")))
             (sleep-for 5)
             (process-send-string proc "select 1;\n")
             (sleep-for 5)
