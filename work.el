@@ -30,13 +30,13 @@
 (exec-shell "sh" t)
 (exec-shell "sh" 'pty)
 
-(exec-shell "bash" nil)
-(exec-shell "bash" t)
-(exec-shell "bash" 'pty)
+;; (exec-shell "bash" nil)
+;; (exec-shell "bash" t)
+;; (exec-shell "bash" 'pty)
 
-(exec-shell "zsh" nil)
-(exec-shell "zsh" t)
-(exec-shell "zsh" 'pty)
+;; (exec-shell "zsh" nil)
+;; (exec-shell "zsh" t)
+;; (exec-shell "zsh" 'pty)
 
 (defun exec-sqlite (type)
   (condition-case err
