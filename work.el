@@ -7,7 +7,7 @@
 (setq buf (generate-new-buffer "*shell*"))
 
 (defun filter-note-appender (proc event)
-  (let ((event (mapconcat (lambda (x) (concat "FFFFFFFFFFFFFFF: " x " :BBBBBBBBBBBBB")) (split-string event "\n") "\n")))
+  (let ((event (mapconcat (lambda (x) (concat "[[[[[[[[[[ " x " ]]]]]]]]]]")) (split-string event "\n") "\n")))
     (with-current-buffer (process-buffer proc)
       (save-excursion
         (goto-char (point-max))
