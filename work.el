@@ -26,17 +26,17 @@
     (error
      (message "Error: %s" err))))
 
-;; (exec-shell "sh" nil)
-;; (exec-shell "sh" t)
-;; (exec-shell "sh" 'pty)
+(exec-shell "sh" nil)
+(exec-shell "sh" t)
+(exec-shell "sh" 'pty)
 
-;; (exec-shell "bash" nil)
-;; (exec-shell "bash" t)
-;; (exec-shell "bash" 'pty)
+(exec-shell "bash" nil)
+(exec-shell "bash" t)
+(exec-shell "bash" 'pty)
 
-;; (exec-shell "zsh" nil)
-;; (exec-shell "zsh" t)
-;; (exec-shell "zsh" 'pty)
+(exec-shell "zsh" nil)
+(exec-shell "zsh" t)
+(exec-shell "zsh" 'pty)
 
 (defun exec-sqlite (type)
   (condition-case err
@@ -45,7 +45,7 @@
         (with-current-buffer buf
           (erase-buffer))
         (let ((process-connection-type type))
-          (let ((proc (start-process "sqilte" buf "sqlite3")))
+          (let ((proc (start-process "sqilte" buf "sqlite3" "-interactive" "hoge.db")))
             (sleep-for 5)
             (process-send-string proc "select 1;\n")
             (sleep-for 5)
@@ -58,9 +58,9 @@
     (error
      (message "Error: %s" err))))
 
-;; (exec-sqlite nil)
-;; (exec-sqlite t)
-;; (exec-sqlite 'pty)
+(exec-sqlite nil)
+(exec-sqlite t)
+(exec-sqlite 'pty)
 
 (defun exec-shell-sqlite (shell type)
   (condition-case err
