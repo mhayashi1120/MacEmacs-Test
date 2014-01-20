@@ -6,14 +6,14 @@
 
 (setq buf (generate-new-buffer "*shell*"))
 
-(defun exec-shell (type)
+(defun exec-shell (shell type)
   (condition-case err
       (progn
-        (print (format "---------- Shell Unit Start %S -----------" type))
+        (print (format "---------- Shell %s Start %S -----------" shell type))
         (with-current-buffer buf
           (erase-buffer))
         (let ((process-connection-type type))
-          (let ((proc (start-process "bash" buf "bash")))
+          (let ((proc (start-process shell buf shell)))
             (sleep-for 5)
             (process-send-string proc "echo 1\n")
             (sleep-for 5)
@@ -22,15 +22,17 @@
             (delete-process proc))
           (with-current-buffer buf
             (print (buffer-string))))
-        (print "---------- Shell Unit Finish -----------"))
+        (print "---------- Shell Finish -----------"))
     (error
      (message "Error: %s" err))))
 
-(exec-shell nil)
+(exec-shell "bash" nil)
+(exec-shell "bash" t)
+(exec-shell "bash" 'pty)
 
-(exec-shell t)
-
-(exec-shell 'pty)
+(exec-shell "zsh" nil)
+(exec-shell "zsh" t)
+(exec-shell "zsh" 'pty)
 
 (defun exec-sqlite (type)
   (condition-case err
