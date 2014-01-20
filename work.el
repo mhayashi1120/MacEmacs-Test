@@ -6,6 +6,13 @@
 
 (setq buf (generate-new-buffer "*shell*"))
 
+(defun filter-note-appender (proc event)
+  (let ((event (mapconcat (lambda (x) (concat "FFFFFFFFFFFFFFF: " x)) (split-string event "\n") "\n")))
+    (with-current-buffer (process-buffer proc)
+      (save-excursion
+        (goto-char (point-max))
+        (insert event)))))
+
 (defun exec-shell (shell type)
   (condition-case err
       (progn
@@ -14,6 +21,7 @@
           (erase-buffer))
         (let ((process-connection-type type))
           (let ((proc (start-process shell buf shell)))
+            (set-process-filter proc 'filter-note-appender)
             (sleep-for 5)
             (process-send-string proc "echo 1\n")
             (sleep-for 5)
@@ -45,7 +53,8 @@
         (with-current-buffer buf
           (erase-buffer))
         (let ((process-connection-type type))
-          (let ((proc (start-process "sqilte" buf "sqlite3" "-interactive" "-echo" "hoge.db")))
+          (let ((proc (start-process "sqilte" buf "sqlite3" "-interactive" "hoge.db")))
+            (set-process-filter proc 'filter-note-appender)
             (sleep-for 5)
             (process-send-string proc "select 1;\n")
             (sleep-for 5)
