@@ -26,6 +26,10 @@
     (error
      (message "Error: %s" err))))
 
+(exec-shell "sh" nil)
+(exec-shell "sh" t)
+(exec-shell "sh" 'pty)
+
 (exec-shell "bash" nil)
 (exec-shell "bash" t)
 (exec-shell "bash" 'pty)
